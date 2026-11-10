@@ -18,7 +18,7 @@
   input,textarea{font-family:inherit}
 
   /* ---------- side panel ---------- */
-  .side{width:330px;position:sticky;top:32px}
+  .side{width:330px;position:sticky;top:32px;max-height:calc(100vh - 64px);overflow-y:auto;padding-right:4px}
   .side h1{font-size:20px;line-height:1.35;margin-bottom:6px}
   .side .hmw{font-size:13.5px;color:#41475a;background:#fff;border-left:4px solid var(--g);padding:12px 14px;border-radius:10px;margin:12px 0 18px;line-height:1.6}
   .side h3{font-size:13px;color:var(--mute);font-weight:500;margin-bottom:8px}
@@ -199,6 +199,48 @@
   .slots button.on small{color:#dff7ee}
   .warn{margin-top:6px;background:#fff6dc;color:#8a5a00;border-radius:8px;padding:6px 8px;font-size:11.5px}
   .warn a{color:var(--g);font-weight:600}
+  .simrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .simrow button{border:1.5px solid var(--line);border-radius:14px;padding:3px 10px;font-size:12px;background:#fff}
+  .simrow button.on{border-color:var(--g);background:var(--gl);color:var(--g);font-weight:600}
+  .exp{display:flex;gap:10px;align-items:flex-start;border-radius:14px;padding:12px;margin-bottom:12px;font-size:13px;border:1.5px solid}
+  .exp .ei{font-size:22px;line-height:1}
+  .exp b{display:block;font-size:14.5px}
+  .exp small{display:block;font-size:12px;opacity:.85;margin-top:2px}
+  .exp.info{background:#fff;border-color:var(--line);color:var(--ink)}
+  .exp.ok{background:var(--gl);border-color:#bfe9da;color:#1d6b55}
+  .exp.warn{background:#fff6dc;border-color:#f6d98a;color:#8a5a00}
+  .exp.urg{background:#ffecec;border-color:#f7b2b2;color:#b42318;animation:pulse 1.6s infinite}
+  .exp.dead{background:#f2f3f5;border-color:#d9dce1;color:#555}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 #f2474733}50%{box-shadow:0 0 0 6px #f2474700}}
+  .ebar{height:6px;background:#0000000f;border-radius:4px;margin-top:8px;overflow:hidden}
+  .ebar u{display:block;height:100%;border-radius:4px;background:currentColor;opacity:.7}
+  .exp.info .ebar u{background:var(--g2);opacity:1}
+  .ea{display:flex;gap:6px;margin-top:8px}
+  .ea button{flex:1;border:1.5px solid currentColor;border-radius:10px;padding:6px;font-size:12.5px;font-weight:600;background:#fff}
+  .ea button.p{background:var(--g);border-color:var(--g);color:#fff}
+  .rm{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .rm:last-child{border:none;padding-bottom:0}
+  .xb{display:inline-block;margin-left:6px;font-size:11px;border-radius:6px;padding:1px 6px;font-weight:600}
+  .xb.org{background:#fff3cf;color:#a46a00}.xb.red{background:#ffe1e1;color:#c0392b}
+  .btn.p.s:disabled{background:#c9ccd3}
+  .modal.center{align-items:center;justify-content:center;padding:24px;z-index:65}
+  .dlg{background:#fff;border-radius:24px;width:100%;overflow:hidden;animation:pop .25s ease}
+  @keyframes pop{from{transform:scale(.88);opacity:0}to{transform:none;opacity:1}}
+  .dh{height:86px;display:grid;place-items:center}
+  .dh.warn{background:linear-gradient(135deg,#ffd27a,#ffb347)}
+  .dh.urg{background:linear-gradient(135deg,#ff7a7a,#f24747)}
+  .dh.dead{background:linear-gradient(135deg,#c9ccd3,#9ea3ad)}
+  .dic{width:62px;height:62px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:32px;box-shadow:0 4px 12px #0002;transform:translateY(30px);animation:ring 1.2s ease 2}
+  @keyframes ring{0%,100%{rotate:0deg}20%{rotate:-14deg}40%{rotate:12deg}60%{rotate:-8deg}80%{rotate:5deg}}
+  .db{padding:38px 18px 14px;text-align:center}
+  .db h4{font-size:18px}
+  .db p{font-size:13px;color:var(--mute);margin:6px 0 10px;line-height:1.6}
+  .db p b{color:var(--ink)}
+  .dleft{display:inline-flex;align-items:baseline;gap:4px;background:#fff1f0;color:#d03a2f;border-radius:14px;padding:4px 16px;margin-bottom:12px;font-size:14px}
+  .dleft b{font-size:30px}.dleft small{font-size:11px;color:var(--mute);margin-left:2px}
+  .dv{display:flex;gap:10px;text-align:left;background:var(--bg);border-radius:12px;padding:8px;margin-bottom:14px;align-items:center}
+  .dv .thumb{width:64px;height:50px}
+  .later{margin-top:10px;font-size:13.5px;color:var(--mute);padding:4px 10px}
   /* select */
   .sel{border:1.5px solid var(--g2);border-radius:12px;padding:11px 12px;display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--g);background:#fff;width:100%}
   .pay-opts{display:none;flex-direction:column;gap:6px;margin-top:8px}
@@ -329,6 +371,8 @@
   <h3>FLOW (กดเพื่อข้ามไปหน้านั้น)</h3>
   <div class="flow" id="flow"></div>
   <div class="state" id="stateBox"></div>
+  <div class="state"><b>⏰ จำลองวันที่ (ทดสอบ Alert หมดอายุ)</b>
+    <div class="simrow" id="simRow"></div></div>
   <button class="reset" onclick="resetAll()">↺ เริ่ม flow ใหม่</button>
 </aside>
 
@@ -605,6 +649,7 @@
 
   <!-- overlays -->
   <div class="toast" id="toast" onclick="toastClick()"><div class="ic">${ICON.bell}</div><div><b id="tT"></b><div id="tS" style="color:var(--mute)"></div></div></div>
+  <div class="modal center" id="expModal" onclick="if(event.target===this)closeExp()"><div class="dlg" id="expDlg"></div></div>
   <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
     <div class="sheet">
       <h4>ยกเลิกนัดหมาย?</h4>
@@ -715,7 +760,7 @@ function pickProduct(id){
   S.prod=id;S.qty=1;go('checkout');
 }
 
-function fresh(){return{prod:'nt1',qty:1,pay:null,cb:false,bought:false,people:1,date:null,time:null,status:'none',/* none|pending|confirmed */
+function fresh(){return{alertSeen:null,remind:{30:true,7:true,1:true},prod:'nt1',qty:1,pay:null,cb:false,bought:false,people:1,date:null,time:null,status:'none',/* none|pending|confirmed */
   calY:2026,calM:10,resched:false,log:[],chat:[]}}
 S=fresh();
 const fmtD=d=>d?`${d.getDate()} ${TH_M[d.getMonth()]} ${d.getFullYear()+543}`:'-';
@@ -763,8 +808,10 @@ function log(t){S.log.push(now()+'  '+t)}
 
 /* ---------- home ---------- */
 function rHome(){
+  setTimeout(()=>showExpAlert(false),300);
   const map={none:S.bought?'1 ใบ · <span style="color:var(--org)">ยังไม่ได้จอง</span>':'ยังไม่มี eVoucher',pending:'1 ใบ · <span style="color:#a46a00">รอร้านยืนยัน</span>',confirmed:`1 ใบ · <span class="green">นัด ${fmtD(S.date)} ${S.time}</span>`};
-  document.getElementById('homeVoucher').innerHTML=(S.bought?'<small style="font-weight:400;color:var(--mute)">'+P().shop+'</small><br>':'')+map[S.status];
+  const d=daysLeft(),bd=S.bought&&S.status==='none'?(d<0?'<span class="xb red">หมดอายุแล้ว</span>':d<=30?`<span class="xb ${d<=7?'red':'org'}">⏰ เหลือ ${d} วัน</span>`:''):'';
+  document.getElementById('homeVoucher').innerHTML=(S.bought?'<small style="font-weight:400;color:var(--mute)">'+P().shop+'</small><br>':'')+map[S.status]+bd;
 }
 
 /* ---------- checkout ---------- */
@@ -930,6 +977,7 @@ function rVoucher(){
   const sub={none:'กรุณาจองวันเวลาเพื่อใช้บริการ',pending:`${fmtD(S.date)} · ${S.time} น.`,confirmed:`${fmtD(S.date)} · ${S.time} น. · ${S.people} คน`}[st];
   document.getElementById('vBody').innerHTML=`
     <div class="hero" data-l="${P().logo}" style="${thStyle(P())}"></div>
+    ${expAlertHTML()}
     <div class="card" style="background:var(--gl);display:flex;gap:10px;align-items:center">
       <div style="flex:1">${ICON.cal}<div class="mt8">${badge}</div><div style="font-size:13px;margin-top:6px">${sub}</div>
         ${st!=='none'?`<button class="green" style="font-size:12.5px;margin-top:4px" onclick="go('status')">ดูสถานะการจอง ›</button>`:''}</div>
@@ -943,6 +991,7 @@ function rVoucher(){
       <div class="kv"><span>🎫 รหัส eVoucher</span><span>${P().code} ⧉</span></div>
       <div class="kv"><span>💳 ชำระด้วย</span><span>${S.pay||'-'}</span></div>
     </div>
+    ${remindHTML()}
     <div class="card">
       <div class="sec-t">สรุปการชำระเงิน</div>
       <div class="sum"><span>ราคา</span><span>${baht(P().old)}</span></div>
@@ -950,7 +999,7 @@ function rVoucher(){
       <div class="sum total"><span>ราคาสุทธิ</span><span>${baht(P().price)}</span></div>
     </div>`;
   document.getElementById('vFoot').innerHTML=`<div class="row">
-    <button class="btn p s" style="flex:1.2" onclick="${st==='none'?"go('booking')":"go('status')"}">📅 ${st==='none'?'จองคิว':'ดูนัดหมาย'}</button>
+    <button class="btn p s" style="flex:1.2" ${daysLeft()<0&&st==='none'?'disabled':''} onclick="${st==='none'?"go('booking')":"go('status')"}">📅 ${st==='none'?(daysLeft()<0?'หมดอายุ':'จองคิว'):'ดูนัดหมาย'}</button>
     <button class="btn o s" onclick="go('chat')">💬 แชต</button>
     <button class="btn o s" onclick="toast('กำลังโทร...',P().shop)">📞 โทร</button></div>`;
 }
@@ -964,7 +1013,7 @@ function toast(t,s,target){
 }
 function toastClick(){document.getElementById('toast').classList.remove('on');if(toastTarget)go(toastTarget)}
 
-function resetAll(){clearTimeout(timer);S=fresh();hist=[];document.getElementById('payOpts').querySelectorAll('button').forEach(b=>b.classList.remove('on'));render('home')}
+function resetAll(){SIMNOW=new Date(TODAY);simIdx=0;rSim();clearTimeout(timer);S=fresh();hist=[];document.getElementById('payOpts').querySelectorAll('button').forEach(b=>b.classList.remove('on'));render('home')}
 function fit(){const H=window.innerHeight-(innerWidth<=820?24:64),W=innerWidth-(innerWidth<=820?16:0);
   const sc=Math.min(1,H/892,W/433);document.getElementById('devWrap').style.setProperty('--sc',sc);
   document.querySelector('.device').style.setProperty('--sc',sc)}
@@ -1003,6 +1052,65 @@ function rSale(){
     document.getElementById('cdH').textContent=f(Math.floor(left/3600));document.getElementById('cdM').textContent=f(Math.floor(left%3600/60));document.getElementById('cdS').textContent=f(left%60)},1000);
 })();
 rSale();
+
+/* ---------- expiry alert ---------- */
+let SIMNOW=new Date(TODAY);
+const SIMS=[['วันนี้',null],['เหลือ 30 วัน',30],['เหลือ 7 วัน',7],['เหลือ 1 วัน',1],['หมดอายุ',-1]];
+let simIdx=0;
+function daysLeft(){return Math.round((EXP-SIMNOW)/86400000)}
+function setSim(i){
+  simIdx=i;const d=SIMS[i][1];SIMNOW=d===null?new Date(TODAY):new Date(EXP.getTime()-d*86400000);
+  rSim();const cur=document.querySelector('.screen.on').dataset.id;render(cur);
+  if(S.bought&&S.status==='none'){
+    const n=daysLeft();
+    if(n<0||S.remind[n]){S.alertSeen=null;go('home',true);setTimeout(()=>showExpAlert(true),350)}
+  }else if(!S.bought)toast('ยังไม่มี eVoucher','ซื้อ eVoucher ก่อนเพื่อทดสอบการแจ้งเตือน');
+}
+
+function showExpAlert(force){
+  if(!S.bought||S.status!=='none')return;
+  const n=daysLeft(),key=n<0?'exp':n<=1?'1':n<=7?'7':n<=30?'30':null;
+  if(!key||(key!=='exp'&&!S.remind[key]))return;
+  if(!force&&S.alertSeen===key)return;
+  if(document.querySelector('.screen.on').dataset.id!=='home')return;
+  S.alertSeen=key;
+  const p=P(),dead=n<0,urg=n<=7;
+  document.getElementById('expDlg').innerHTML=`
+    <div class="dh ${dead?'dead':urg?'urg':'warn'}"><div class="dic">${dead?'⛔':'⏰'}</div></div>
+    <div class="db">
+      <h4>${dead?'eVoucher หมดอายุแล้ว':n<=1?'วันสุดท้ายของ eVoucher!':'eVoucher ใกล้หมดอายุ'}</h4>
+      <p>${dead?`eVoucher ของคุณหมดอายุเมื่อ ${fmtD(EXP)}`:`คุณยังไม่ได้จองวันเวลาใช้บริการ<br>กรุณาจองก่อน <b>${fmtD(EXP)}</b>`}</p>
+      ${dead?'':`<div class="dleft"><b>${n}</b> วัน<small>ที่เหลือ</small></div>`}
+      <div class="dv">${thumbHTML(p)}<div><div style="font-size:11.5px;color:var(--mute)">${p.shop}</div><div style="font-size:13px;font-weight:600;line-height:1.35">${p.name}</div><div style="font-size:11.5px;color:var(--mute)">${p.code}</div></div></div>
+      ${dead?`<button class="btn p" onclick="closeExp();go('chat')">💬 ติดต่อร้านค้า</button>
+               <button class="btn o mt8" onclick="closeExp();go('list')">ดูดีลใหม่</button>`
+            :`<button class="btn p" onclick="closeExp();go('booking')">📅 จองวันเวลาเลย</button>
+              <button class="btn o mt8" onclick="closeExp();go('chat');ask('slots')">💬 ถามเวลาว่างกับร้าน</button>`}
+      <button class="later" onclick="closeExp()">${dead?'ปิด':'ไว้ทีหลัง'}</button>
+    </div>`;
+  document.getElementById('expModal').classList.add('on');
+}
+function closeExp(){document.getElementById('expModal').classList.remove('on')}
+function rSim(){document.getElementById('simRow').innerHTML=SIMS.map((s,i)=>`<button class="${i===simIdx?'on':''}" onclick="setSim(${i})">${s[0]}</button>`).join('')}
+function expAlertHTML(){
+  const n=daysLeft(),total=Math.round((EXP-TODAY)/86400000),pct=Math.max(0,Math.min(100,n/total*100));
+  const until=`ใช้ได้ถึง ${fmtD(EXP)}`;
+  if(S.status==='confirmed')return `<div class="exp ok"><span class="ei">✅</span><div><b>นัดหมายแล้ว — ไม่ต้องกังวลเรื่องวันหมดอายุ</b><small>นัด ${fmtD(S.date)} ${S.time} น. · ${until}</small></div></div>`;
+  if(S.status==='pending')return `<div class="exp info"><span class="ei">⏳</span><div><b>รอร้านยืนยันนัด</b><small>${until} (อีก ${n} วัน)</small></div></div>`;
+  if(n<0)return `<div class="exp dead"><span class="ei">⛔</span><div><b>eVoucher หมดอายุแล้ว</b><small>หมดอายุเมื่อ ${fmtD(EXP)} · ไม่สามารถจองคิวได้</small>
+    <div class="ea"><button onclick="go('chat')">💬 ติดต่อร้านค้า</button><button onclick="go('list')">ดูดีลใหม่</button></div></div></div>`;
+  const lv=n<=7?'urg':n<=30?'warn':'info';
+  const ttl=n<=1?`วันสุดท้าย! eVoucher หมดอายุ${n===0?'วันนี้':'พรุ่งนี้'}`:n<=7?`ด่วน! เหลืออีก ${n} วันจะหมดอายุ`:n<=30?`ใกล้หมดอายุ · เหลืออีก ${n} วัน`:`ใช้ได้อีก ${n} วัน`;
+  return `<div class="exp ${lv}"><span class="ei">${lv==='info'?'📅':'⏰'}</span><div style="flex:1"><b>${ttl}</b><small>${until} · ยังไม่ได้จองวันเวลา</small>
+    <div class="ebar"><u style="width:${pct}%"></u></div>
+    ${lv!=='info'?`<div class="ea"><button class="p" onclick="go('booking')">📅 จองคิวเลย</button><button onclick="go('chat');ask('slots')">💬 ถามเวลาว่าง</button></div>`:''}</div></div>`;
+}
+function remindHTML(){
+  return `<div class="card"><div class="sec-t" style="margin-bottom:4px">🔔 แจ้งเตือนก่อนหมดอายุ</div>
+    <small style="color:var(--mute);font-size:12px">แสดง Alert ในแอปเมื่อเปิด GoWabi · หยุดแจ้งเตือนอัตโนมัติเมื่อจองคิวแล้ว</small>
+    ${[30,7,1].map(d=>`<div class="rm"><span>ก่อนหมดอายุ ${d} วัน</span><button class="toggle ${S.remind[d]?'on':''}" onclick="S.remind[${d}]=!S.remind[${d}];rVoucher()"></button></div>`).join('')}</div>`;
+}
+rSim();
 
 render('home');
 </script>
